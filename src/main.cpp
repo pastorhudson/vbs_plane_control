@@ -55,7 +55,7 @@ static lv_color_t buf[screenWidth * screenHeight / 10];
 TFT_eSPI tft = TFT_eSPI(screenWidth, screenHeight); /* TFT instance */
 
 // ESP-NOW variables and functions
-uint8_t propMotorMAC[] = {0xD8, 0x3B, 0xDA, 0xC8, 0x95, 0xEC}; // Replace with actual MAC
+uint8_t propMotorMAC[] = {0x80, 0x65, 0x99, 0x49, 0x8D, 0x4C}; // Replace with actual MAC
 esp_now_peer_info_t peerInfo;
 
 // Function to send command via ESP-NOW
@@ -129,10 +129,10 @@ void lights_switch_event_handler(lv_event_t * e) {
     
     if(code == LV_EVENT_VALUE_CHANGED) {
         if(lv_obj_has_state(obj, LV_STATE_CHECKED)) {
-            send_esp_now_command("PATTERN:0");  // Airplane navigation lights
+            send_esp_now_command("LIGHTS_ALL_ON");  // Airplane navigation lights
             Serial.println("Lights switch ON");
         } else {
-            send_esp_now_command("PATTERN:9");  // Turn off lights
+            send_esp_now_command("LIGHTS_ALL_OFF");  // Turn off lights
             Serial.println("Lights switch OFF");
         }
     }
